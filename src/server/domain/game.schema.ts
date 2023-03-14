@@ -1,5 +1,5 @@
 import { model, Schema, SchemaTypes } from 'mongoose';
-import Game from '../../games/domain/game.js';
+import Game from '../../games/domain/game.model.js';
 
 const gameSchema = new Schema<Game>({
   gameName: {

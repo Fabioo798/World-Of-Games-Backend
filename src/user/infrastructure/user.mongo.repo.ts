@@ -1,6 +1,6 @@
 import { UserModel } from '../../server/domain/user.schema.js';
-import User from '../domain/user.js';
-import UserRepository from '../domain/user.repo.js';
+import User from '../domain/user.model.js';
+import UserRepository from '../domain/user.model.repo.js';
 
 export default class UserMongoRepo implements UserRepository {
   private userModel: typeof UserModel;
@@ -26,7 +26,7 @@ export default class UserMongoRepo implements UserRepository {
     await this.userModel.findByIdAndDelete(id);
   }
 
-  async search(query: { key: string; value: unknown; }): Promise<User[]> {
+  async search(query: { key: string; value: unknown }): Promise<User[]> {
     const response = await this.userModel.find({ [query.key]: query.value });
 
     return response;

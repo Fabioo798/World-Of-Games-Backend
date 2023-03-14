@@ -1,4 +1,4 @@
-import UserRepository from '../domain/user.repo.js';
+import UserRepository from '../domain/user.model.repo.js';
 
 export default class UserDeleter {
   // eslint-disable-next-line no-useless-constructor

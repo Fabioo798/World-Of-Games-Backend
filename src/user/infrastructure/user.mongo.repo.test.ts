@@ -1,6 +1,6 @@
 import UserMongoRepo from './user.mongo.repo.js';
 import { UserModel } from '../../server/domain/user.schema.js';
-import User from '../domain/user.js';
+import User from '../domain/user.model.js';
 
 jest.mock('../../server/domain/user.schema');
 

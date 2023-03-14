@@ -1,4 +1,4 @@
-import Game from '../../games/domain/game.js';
+import Game from '../../games/domain/game.model.js';
 
 export default class User {
   // eslint-disable-next-line no-useless-constructor, max-params

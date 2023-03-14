@@ -1,5 +1,5 @@
-import User from '../domain/user';
-import UserRepository from '../domain/user.repo';
+import User from '../domain/user.model.js';
+import UserRepository from '../domain/user.model.repo';
 import UserSearcher from './usersearcher';
 
 const mockRepo = {

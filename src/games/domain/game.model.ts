@@ -1,4 +1,4 @@
-import User from '../../user/domain/user.js';
+import User from '../../user/domain/user.model.js';
 
 export type gameCategory = 'MOBA' | 'RPG' | 'MMO' | 'FPS';
 

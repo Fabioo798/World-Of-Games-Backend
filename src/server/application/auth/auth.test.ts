@@ -1,11 +1,11 @@
-import { Auth } from './auth';
+import { Auth } from './auth.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import { TokenPayload } from '../../commons/interfaces';
+import { TokenPayload } from '../../../commons/interfaces.js';
 
 jest.mock('bcryptjs');
 jest.mock('jsonwebtoken');
-jest.mock('../../config', () => ({
+jest.mock('../../../config', () => ({
   config: {
     secret: 'test',
   },

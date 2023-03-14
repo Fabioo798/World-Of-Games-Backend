@@ -8,11 +8,14 @@ export default {
   coveragePathIgnorePatterns: [
     'index.ts',
     'app.ts',
+    'schema',
     'router',
     'error.ts',
     'db.connect',
     'config',
     'model',
-    'authorization.ts'
+    'schema.ts',
+    'user.ts',
+    'game.ts',
   ],
 };

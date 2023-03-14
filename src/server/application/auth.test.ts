@@ -6,7 +6,6 @@ import { TokenPayload } from '../../commons/interfaces';
 jest.mock('bcryptjs');
 jest.mock('jsonwebtoken');
 jest.mock('../../config', () => ({
-  _dirname: 'test',
   config: {
     secret: 'test',
   },

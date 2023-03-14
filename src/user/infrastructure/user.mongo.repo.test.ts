@@ -12,10 +12,12 @@ const mockModel = {
   findByIdAndDelete: jest.fn(),
 } as unknown as typeof UserModel;
 
+const pass = 'test1';
+
 const mockUser = {
   id: '2',
   email: 'test',
-  password: 'test1',
+  password: pass,
 } as User;
 
 describe('Given the UserMongoRepo', () => {

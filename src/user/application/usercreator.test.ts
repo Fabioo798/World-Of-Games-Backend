@@ -6,10 +6,12 @@ const mockRepo = {
   create: jest.fn(),
 } as unknown as UserRepository;
 
+const pass = 'test1'
+
 const mockUser = {
   id: '2',
   email: 'test',
-  password: 'test1',
+  password: pass,
 } as User;
 
 describe('Given the UserCreator class', () => {

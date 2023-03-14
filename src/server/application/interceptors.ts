@@ -1,7 +1,7 @@
 import { NextFunction, Response } from 'express';
 import createDebug from 'debug';
 import { Auth } from './auth.js';
-import { RequestPlus } from '../../commons/interfaces.js';
+import { RequestPlus, TokenPayload } from '../../commons/interfaces.js';
 import { HTTPError } from '../../commons/error.js';
 
 const debug = createDebug('W7CH5: interceptors');
@@ -46,14 +46,14 @@ export class Interceptors {
       if (!req.params.id)
         throw new HTTPError(404, 'Not found', 'Not found user ID in params');
 
-      if (req.info?.id !== req.params.id)
+      if ((req.info as TokenPayload).id !== req.params.id)
         throw new HTTPError(
           401,
           'Unauthorized',
           'The ID from params is not equal to ID from Token'
         );
 
-      req.body.id = req.info?.id;
+      req.body.id = (req.info as TokenPayload).id;
 
       next();
     } catch (error) {

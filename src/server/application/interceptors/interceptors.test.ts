@@ -1,10 +1,11 @@
 import { Response } from 'express';
-import { RequestPlus, TokenPayload } from '../../commons/interfaces.js';
-import { Auth } from './auth.js';
+import { RequestPlus, TokenPayload } from '../../../commons/interfaces.js';
+import { Auth } from '../auth/auth.js';
 import { Interceptors } from './interceptors.js';
 
-jest.mock('./auth.js');
-jest.mock('./../../config.js', () => ({
+
+jest.mock('../auth/auth.js');
+jest.mock('../../../config.js', () => ({
   config: {
     secret: 'test',
   },

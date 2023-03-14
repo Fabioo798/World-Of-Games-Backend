@@ -1,8 +1,8 @@
 import { NextFunction, Response } from 'express';
 import createDebug from 'debug';
-import { Auth } from './auth.js';
-import { RequestPlus, TokenPayload } from '../../commons/interfaces.js';
-import { HTTPError } from '../../commons/error.js';
+import { HTTPError } from '../../../commons/error';
+import { RequestPlus, TokenPayload } from '../../../commons/interfaces';
+import { Auth } from '../auth/auth';
 
 const debug = createDebug('W7CH5: interceptors');
 

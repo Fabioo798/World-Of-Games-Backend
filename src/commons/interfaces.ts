@@ -11,3 +11,8 @@ export interface TokenPayload extends jwt.JwtPayload {
 export interface RequestPlus extends Request {
   info?: TokenPayload;
 }
+
+export interface CustomError extends Error {
+  statusCode: number;
+  statusMessage: string;
+}

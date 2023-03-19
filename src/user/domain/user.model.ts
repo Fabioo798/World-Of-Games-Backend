@@ -7,8 +7,8 @@ export default class User {
     public name: string,
     public email: string,
     public password: string,
-    public shoplist: Game[],
-    public mygames: Game[],
+    public shopList: Game[],
+    public myGames: Game[],
     public img: string,
     public address: string,
     public notification: string[]

@@ -1,9 +1,7 @@
 import { model, Schema, SchemaTypes } from 'mongoose';
-import User from '../../user/domain/user.model';
-
+import User from '../../user/domain/user.model.js';
 
 const userSchema = new Schema<User>({
-
   name: {
     type: String,
     required: true,
@@ -19,16 +17,16 @@ const userSchema = new Schema<User>({
     required: true,
   },
   img: {
-    type:String,
+    type: String,
     required: true,
   },
-  shoplist: [
+  shopList: [
     {
       type: SchemaTypes.ObjectId,
       ref: 'Games',
     },
   ],
-  mygames: [
+  myGames: [
     {
       type: SchemaTypes.ObjectId,
       ref: 'Games',
@@ -38,7 +36,7 @@ const userSchema = new Schema<User>({
     type: String,
     required: false,
     unique: false,
-  }
+  },
 });
 
 userSchema.set('toJSON', {

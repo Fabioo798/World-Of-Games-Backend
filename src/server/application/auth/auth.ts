@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { TokenPayload } from '../../../commons/interfaces';
-import { config } from '../../../config';
+import { TokenPayload } from '../../../commons/interfaces.js';
+import { config } from '../../../config.js';
 
 const salt = 10;
 

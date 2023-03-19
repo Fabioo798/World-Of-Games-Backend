@@ -93,7 +93,7 @@ describe('Given userController class', () => {
     test('Then if user information in the body, has not user name, it should be catch the error and next function have been called', async () => {
       const req = {
         body: {
-          password: 'test',
+          password: pass,
         },
       } as unknown as Request;
 
@@ -177,7 +177,7 @@ describe('Given userController class', () => {
     describe('When all params are correct', () => {
       test('Then it should call resp.json', async () => {
         const req = {
-          body: { name: 'test', email: 'Test', password: 'test' },
+          body: { name: 'test', email: 'Test', password: pass },
           info: { id: '1' },
           params: { id: '1' },
         } as unknown as RequestPlus;
@@ -190,7 +190,7 @@ describe('Given userController class', () => {
     describe('When updateUser fails', () => {
       test('Then it should call next', async () => {
         const req = {
-          body: { name: 'test', email: 'Test', password: 'test' },
+          body: { name: 'test', email: 'Test', password: pass },
           info: { id: '1' },
         } as unknown as RequestPlus;
         (mockRepo.find as jest.Mock).mockResolvedValue(undefined);
@@ -203,7 +203,7 @@ describe('Given userController class', () => {
     describe('When there is no req.info.id', () => {
       test('Then it should call next', async () => {
         const req = {
-          body: { name: 'test', email: 'Test', password: 'test' },
+          body: { name: 'test', email: 'Test', password: pass },
           info: { id: '1' },
         } as unknown as RequestPlus;
         req.info = undefined as unknown as TokenPayload;
@@ -216,7 +216,7 @@ describe('Given userController class', () => {
   describe('When deleteUser method is called', () => {
     test('Then if the id is found it should respond with status', async () => {
       const req = {
-        body: { name: 'test', email: 'Test', password: 'test' },
+        body: { name: 'test', email: 'Test', password: pass },
         info: { id: '1' },
         params: { id: '1' },
       } as unknown as RequestPlus;

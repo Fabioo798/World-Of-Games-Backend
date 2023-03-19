@@ -89,8 +89,6 @@ describe('Given GameController class', () => {
       req.body.owner = mockData;
       await controller.createGame(req, res, next);
       (mockUserRepo.update as jest.Mock).mockResolvedValue(mockUser);
-      // Expect(res.status).toHaveBeenCalled();
-      // Expect(res.json).toHaveBeenCalled();
     });
 
     test('Then if game information in the body, has not  name, it should be catch the error and next function have been called', async () => {

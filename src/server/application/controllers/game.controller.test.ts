@@ -49,6 +49,8 @@ describe('Given GameController class', () => {
     email: 'test',
   } as unknown as User;
 
+  const pass = 'test';
+
   const controller = new GameController(
     mockGameCreator,
     mockGameFinderAll,
@@ -81,7 +83,7 @@ describe('Given GameController class', () => {
         info: {
           id: 'test',
           email: 'test',
-          role: 'test'
+          role: 'test',
         },
       } as unknown as RequestPlus;
 
@@ -104,7 +106,6 @@ describe('Given GameController class', () => {
           name: 'test',
         },
       } as unknown as RequestPlus;
-
 
       await controller.createGame(req, res, next);
       expect(next).toHaveBeenCalled();
@@ -203,7 +204,7 @@ describe('Given GameController class', () => {
     describe('When updateGame fails', () => {
       test('Then it should call next', async () => {
         const req = {
-          body: { name: 'test', email: 'Test', password: 'test' },
+          body: { name: 'test', email: 'Test', password: pass },
           params: { id: '1' },
         } as unknown as RequestPlus;
         (mockRepo.update as jest.Mock).mockResolvedValue(undefined);
@@ -216,7 +217,7 @@ describe('Given GameController class', () => {
     describe('When there is no req.info.id', () => {
       test('Then it should call next', async () => {
         const req = {
-          body: { name: 'test', email: 'Test', password: 'test' },
+          body: { name: 'test', email: 'Test', password: pass },
           info: { id: '1' },
         } as unknown as RequestPlus;
         await controller.updateGame(req, res, next);

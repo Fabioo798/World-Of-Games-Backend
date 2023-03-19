@@ -58,7 +58,7 @@ const bootstrap = async () => {
   const gameRouter = new GameRouter(gameController)
 
   // Server
-  
+
   const server = new ExpressServer([userRouter, gameRouter]);
 
   server.start(6000);

@@ -1,10 +1,10 @@
 import { NextFunction, Response } from 'express';
 import createDebug from 'debug';
-import { HTTPError } from '../../../commons/error';
-import { RequestPlus, TokenPayload } from '../../../commons/interfaces';
-import { Auth } from '../auth/auth';
+import { HTTPError } from '../../../commons/error.js';
+import { RequestPlus, TokenPayload } from '../../../commons/interfaces.js';
+import { Auth } from '../auth/auth.js';
 
-const debug = createDebug('W7CH5: interceptors');
+const debug = createDebug('WOG: interceptors');
 
 export class Interceptors {
   logged(req: RequestPlus, _resp: Response, next: NextFunction) {

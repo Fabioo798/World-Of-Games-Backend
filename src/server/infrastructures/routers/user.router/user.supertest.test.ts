@@ -124,7 +124,7 @@ describe('Given the Express server class with "/users" route', () => {
       password: pass,
     };
 
-    await setUp
+    await request(server1.app)
       .post('/users/login')
       .set('Authorization', `Bearer ${token1}`)
       .send(credentials)
@@ -143,7 +143,7 @@ describe('Given the Express server class with "/users" route', () => {
   });
 
   test('then the GET request  will send us back user data and a 200 status', async () => {
-    await setUp
+    await request(server1.app)
       .get(`/users/${ids1[0]}`)
       .set('Authorization', `Bearer ${token1}`)
       .expect(200);
@@ -155,7 +155,7 @@ describe('Given the Express server class with "/users" route', () => {
       .expect(500);
   });
   test('if our PUT request must send user data and a 200 status', async () => {
-    await setUp
+    await request(server1.app)
       .get(`/users/${ids1[0]}`)
       .set('Authorization', `Bearer ${token1}`)
       .expect(200);
@@ -167,7 +167,7 @@ describe('Given the Express server class with "/users" route', () => {
       .expect(500);
   });
   test('then our DELETE request should send back user data and a 200 status', async () => {
-    await setUp
+    await request(server1.app)
       .get(`/users/${ids1[0]}`)
       .set('Authorization', `Bearer ${token1}`)
       .expect(200);

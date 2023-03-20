@@ -99,6 +99,8 @@ describe('Given the Express server class with "/users" route', () => {
     };
     header = 'Authorization';
     bearer = `Bearer ${token1}`;
+
+    
   });
 
   afterAll(async () => {

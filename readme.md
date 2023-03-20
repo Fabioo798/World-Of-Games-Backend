@@ -1,6 +1,6 @@
-# ![Screenshot of my app](./assets/WOG-logo.png)
+# ![Logo](./assets/WOG-logo1.png)
 
-## backend
+## Backend
 
 Welcome to the backend side of World Of Games project.
 

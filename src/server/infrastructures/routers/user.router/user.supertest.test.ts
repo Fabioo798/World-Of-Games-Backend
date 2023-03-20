@@ -54,21 +54,21 @@ const setCollection = async () => {
   return testIds;
 };
 
-describe('Given an Express server class with "/users" route', () => {
-  let server: ExpressServer;
-  let token: string;
-  let ids: Array<string>;
+describe('Given the Express server class with "/users" route', () => {
+  let server1: ExpressServer;
+  let token1: string;
+  let ids1: Array<string>;
 
   beforeAll(async () => {
     await dbConnect();
-    ids = await setCollection();
+    ids1 = await setCollection();
     const payload: TokenPayload = {
-      id: ids[0],
-      name: 'maria',
+      id: ids1[1],
+      name: 'angelo',
       role: 'admin',
-      email: 'maria@test.it',
+      email: 'angelo@test.it',
     };
-    token = Auth.createJWT(payload);
+    token1 = Auth.createJWT(payload);
     const userRouter = new UserRouter(
       new UserController(
         userCreator,
@@ -78,7 +78,7 @@ describe('Given an Express server class with "/users" route', () => {
         userDeleter
       )
     );
-    server = new ExpressServer([userRouter]);
+    server1 = new ExpressServer([userRouter]);
   });
 
   afterAll(async () => {
@@ -97,7 +97,7 @@ describe('Given an Express server class with "/users" route', () => {
         address: 'test',
         notification: [],
       };
-      await request(server.app)
+      await request(server1.app)
         .post('/users/register')
         .send(newUser)
         .expect(201);
@@ -111,7 +111,7 @@ describe('Given an Express server class with "/users" route', () => {
         address: 'test',
         notification: [],
       };
-      await request(server.app)
+      await request(server1.app)
         .post('/users/register')
         .send(newUser)
         .expect(401);
@@ -123,9 +123,9 @@ describe('Given an Express server class with "/users" route', () => {
       email: 'newuser@test.it',
       password: pass,
     };
-    await request(server.app)
+    await request(server1.app)
       .post('/users/login')
-      .set('Authorization', `Bearer ${token}`)
+      .set('Authorization', `Bearer ${token1}`)
       .send(credentials)
       .expect(202);
   });
@@ -134,47 +134,47 @@ describe('Given an Express server class with "/users" route', () => {
       email: 'newuser@tet.it',
       password: pass,
     };
-    await request(server.app)
+    await request(server1.app)
       .post('/users/login')
-      .set('Authorization', `Bearer ${token}`)
+      .set('Authorization', `Bearer ${token1}`)
       .send(credentials)
       .expect(401);
   });
 
   test('then the GET request to "/users/:id" will send us back user data and a 200 status', async () => {
-    await request(server.app)
-      .get(`/users/${ids[0]}`)
-      .set('Authorization', `Bearer ${token}`)
+    await request(server1.app)
+      .get(`/users/${ids1[0]}`)
+      .set('Authorization', `Bearer ${token1}`)
       .expect(200);
   });
-  test('(NO)then a GET request to "/users/:id" with wrong id should return a 500 status', async () => {
-    await request(server.app)
+  test('(NO) a GET request to "/users/:id" with wrong id should return a 500 status', async () => {
+    await request(server1.app)
       .get(`/users/12343`)
-      .set('Authorization', `Bearer ${token}`)
+      .set('Authorization', `Bearer ${token1}`)
       .expect(500);
   });
   test('then our PUT request to "/users/:id" must send user data and a 200 status', async () => {
-    await request(server.app)
-      .get(`/users/${ids[0]}`)
-      .set('Authorization', `Bearer ${token}`)
+    await request(server1.app)
+      .get(`/users/${ids1[0]}`)
+      .set('Authorization', `Bearer ${token1}`)
       .expect(200);
   });
-  test('(NO)then the PUT request to "/users/:id" should throw 500 status', async () => {
-    await request(server.app)
+  test('(NO) the PUT request to "/users/:id" should throw 500 status', async () => {
+    await request(server1.app)
       .get(`/users/123`)
-      .set('Authorization', `Bearer ${token}`)
+      .set('Authorization', `Bearer ${token1}`)
       .expect(500);
   });
   test('then our DELETE request to "/users/:id" should send back user data and a 200 status', async () => {
-    await request(server.app)
-      .get(`/users/${ids[0]}`)
-      .set('Authorization', `Bearer ${token}`)
+    await request(server1.app)
+      .get(`/users/${ids1[0]}`)
+      .set('Authorization', `Bearer ${token1}`)
       .expect(200);
   });
-  test('(NO)then the DELETE request to "/users/:id" must return a 500 status', async () => {
-    await request(server.app)
+  test('(NO) the DELETE request to "/users/:id" must return a 500 status', async () => {
+    await request(server1.app)
       .get(`/users/123`)
-      .set('Authorization', `Bearer ${token}`)
+      .set('Authorization', `Bearer ${token1}`)
       .expect(500);
   });
 });

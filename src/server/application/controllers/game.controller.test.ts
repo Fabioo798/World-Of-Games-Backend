@@ -87,14 +87,14 @@ describe('Given GameController class', () => {
         },
       } as unknown as RequestPlus;
       const mockData = (mockUserRepo.find as jest.Mock).mockReturnValue({id: 'test',
-       name: 'test',
-       email: 'test',
-       password: 'test',
-       shopList: [],
-       myGames: [],
-       img: 'test',
-       address: 'test',
-       notification: []});
+      name: 'test',
+      email: 'test',
+      password: 'test',
+      shopList: [],
+      myGames: [],
+      img: 'test',
+      address: 'test',
+      notification: []});
       req1.body.owner = mockData;
       await controller.createGame(req1, res, next);
       (mockUserRepo.update as jest.Mock).mockResolvedValue(mockUser);

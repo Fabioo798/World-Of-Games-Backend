@@ -3,9 +3,7 @@ import { Router } from 'express';
 import GameController from '../../../application/controllers/game.controller.js';
 import { Interceptors } from '../../../application/interceptors/interceptors.js';
 import ServerRouter from '../../../Server.router.interface.js';
-import createDebug from  'debug';
 
-const debug = createDebug('WOG: GameRouter')
 export default class GameRouter implements ServerRouter {
   // eslint-disable-next-line @typescript-eslint/no-inferrable-types
   path: string = '/games';

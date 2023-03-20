@@ -141,37 +141,37 @@ describe('Given the Express server class with "/users" route', () => {
       .expect(401);
   });
 
-  test('then the GET request to "/users/:id" will send us back user data and a 200 status', async () => {
+  test('then the GET request  will send us back user data and a 200 status', async () => {
     await request(server1.app)
       .get(`/users/${ids1[0]}`)
       .set('Authorization', `Bearer ${token1}`)
       .expect(200);
   });
-  test('(NO) a GET request to "/users/:id" with wrong id should return a 500 status', async () => {
+  test('(NO) a GET request with wrong id should return a 500 status', async () => {
     await request(server1.app)
       .get(`/users/12343`)
       .set('Authorization', `Bearer ${token1}`)
       .expect(500);
   });
-  test('then our PUT request to "/users/:id" must send user data and a 200 status', async () => {
+  test('then our PUT request must send user data and a 200 status', async () => {
     await request(server1.app)
       .get(`/users/${ids1[0]}`)
       .set('Authorization', `Bearer ${token1}`)
       .expect(200);
   });
-  test('(NO) the PUT request to "/users/:id" should throw 500 status', async () => {
+  test('(NO) the PUT request should throw 500 status', async () => {
     await request(server1.app)
       .get(`/users/123`)
       .set('Authorization', `Bearer ${token1}`)
       .expect(500);
   });
-  test('then our DELETE request to "/users/:id" should send back user data and a 200 status', async () => {
+  test('then our DELETE request should send back user data and a 200 status', async () => {
     await request(server1.app)
       .get(`/users/${ids1[0]}`)
       .set('Authorization', `Bearer ${token1}`)
       .expect(200);
   });
-  test('(NO) the DELETE request to "/users/:id" must return a 500 status', async () => {
+  test('(NO) the DELETE request must return a 500 status', async () => {
     await request(server1.app)
       .get(`/users/123`)
       .set('Authorization', `Bearer ${token1}`)

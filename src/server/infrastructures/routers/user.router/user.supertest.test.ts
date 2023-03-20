@@ -13,11 +13,16 @@ import UserFinder from '../../../../user/application/userfinder';
 import UserSearcher from '../../../../user/application/usersearcher';
 import UserUpdater from '../../../../user/application/userupdater';
 import UserMongoRepo from '../../../../user/infrastructure/user.mongo.repo';
+import User from '../../../../user/domain/user.model';
 
 const repo = new UserMongoRepo(UserModel);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let setUp: request.SuperTest<any>;
+let credentials: Partial<User>;
+let wrongCredentials: Partial<User>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let header: any;
 
 const userCreator = new UserCreator(repo);
 const userFinder = new UserFinder(repo);
@@ -82,7 +87,17 @@ describe('Given the Express server class with "/users" route', () => {
       )
     );
     server1 = new ExpressServer([userRouter]);
-    setUp = request(server1.app);
+    setUp = await request(server1.app);
+
+    credentials = {
+      email: 'newuser@test.it',
+      password: pass,
+    };
+    wrongCredentials = {
+      email: 'newuser@test.it',
+      password: pass,
+    };
+    header =`'Authorization', Bearer ${token1}`
   });
 
   afterAll(async () => {
@@ -119,63 +134,56 @@ describe('Given the Express server class with "/users" route', () => {
   });
 
   test('if the POST request to "/users/login" should return a token and a 200 status', async () => {
-    const credentials = {
-      email: 'newuser@test.it',
-      password: pass,
-    };
 
-    await request(server1.app)
+    await setUp
       .post('/users/login')
-      .set('Authorization', `Bearer ${token1}`)
+      .set(header)
       .send(credentials)
       .expect(202);
   });
   it('ERROR then our POST request to "/users/login" must return a 401 status', async () => {
-    const credentials = {
-      email: 'newuser@1tet.it',
-      password: pass,
-    };
+
     await setUp
       .post('/users/login')
-      .set('Authorization', `Bearer ${token1}`)
-      .send(credentials)
+      .set(header)
+      .send(wrongCredentials)
       .expect(401);
   });
 
   test('then the GET request  will send us back user data and a 200 status', async () => {
-    await request(server1.app)
+    await setUp
       .get(`/users/${ids1[0]}`)
-      .set('Authorization', `Bearer ${token1}`)
+      .set(header)
       .expect(200);
   });
   it('(NO) a GET request with wrong id should return a 500 status', async () => {
     await setUp
       .get(`/users/12343`)
-      .set('Authorization', `Bearer ${token1}`)
+      .set(header)
       .expect(500);
   });
   test('if our PUT request must send user data and a 200 status', async () => {
-    await request(server1.app)
+    await setUp
       .get(`/users/${ids1[0]}`)
-      .set('Authorization', `Bearer ${token1}`)
+      .set(header)
       .expect(200);
   });
   it('ERROR the PUT request should throw 500 status', async () => {
     await setUp
       .get(`/users/123`)
-      .set('Authorization', `Bearer ${token1}`)
+      .set(header)
       .expect(500);
   });
   test('then our DELETE request should send back user data and a 200 status', async () => {
-    await request(server1.app)
+    await setUp
       .get(`/users/${ids1[0]}`)
-      .set('Authorization', `Bearer ${token1}`)
+      .set(header)
       .expect(200);
   });
   it('(NO) the DELETE request must return a 500 status', async () => {
     await setUp
       .get(`/users/123`)
-      .set('Authorization', `Bearer ${token1}`)
+      .set(header)
       .expect(500);
   });
 });

@@ -118,7 +118,7 @@ describe('Given the Express server class with "/users" route', () => {
     });
   });
 
-  test('then the POST request to "/users/login" should return a token and a 200 status', async () => {
+  test('if the POST request to "/users/login" should return a token and a 200 status', async () => {
     const credentials = {
       email: 'newuser@test.it',
       password: pass,
@@ -129,7 +129,7 @@ describe('Given the Express server class with "/users" route', () => {
       .send(credentials)
       .expect(202);
   });
-  test('(NO)then our POST request to "/users/login" must return a 401 status', async () => {
+  it('ERROR then our POST request to "/users/login" must return a 401 status', async () => {
     const credentials = {
       email: 'newuser@tet.it',
       password: pass,
@@ -147,19 +147,19 @@ describe('Given the Express server class with "/users" route', () => {
       .set('Authorization', `Bearer ${token1}`)
       .expect(200);
   });
-  test('(NO) a GET request with wrong id should return a 500 status', async () => {
+  it('(NO) a GET request with wrong id should return a 500 status', async () => {
     await request(server1.app)
       .get(`/users/12343`)
       .set('Authorization', `Bearer ${token1}`)
       .expect(500);
   });
-  test('then our PUT request must send user data and a 200 status', async () => {
+  test('if our PUT request must send user data and a 200 status', async () => {
     await request(server1.app)
       .get(`/users/${ids1[0]}`)
       .set('Authorization', `Bearer ${token1}`)
       .expect(200);
   });
-  test('(NO) the PUT request should throw 500 status', async () => {
+  it('ERROR the PUT request should throw 500 status', async () => {
     await request(server1.app)
       .get(`/users/123`)
       .set('Authorization', `Bearer ${token1}`)
@@ -171,7 +171,7 @@ describe('Given the Express server class with "/users" route', () => {
       .set('Authorization', `Bearer ${token1}`)
       .expect(200);
   });
-  test('(NO) the DELETE request must return a 500 status', async () => {
+  it('(NO) the DELETE request must return a 500 status', async () => {
     await request(server1.app)
       .get(`/users/123`)
       .set('Authorization', `Bearer ${token1}`)

@@ -7,8 +7,8 @@
   "scripts": {
     "test": "jest --watchAll --coverage",
     "test:prod": "jest --watchAll --coverage --watchAll=false --passWithNoTests",
-    "start": "cross-env DEBUG=W7* PORT=6000 node ./dist/index.js",
-    "start:mon": "cross-env DEBUG=W7* PORT=6000 nodemon ./dist/index.js",
+    "start": "cross-env DEBUG=WOG* PORT=6000 node ./dist/index.js",
+    "start:mon": "cross-env DEBUG=WOG* PORT=6000 nodemon ./dist/index.js",
     "build": "tsc -w",
     "build:prod": "tsc"
   },

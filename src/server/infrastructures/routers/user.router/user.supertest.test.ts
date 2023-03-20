@@ -97,7 +97,7 @@ describe('Given the Express server class with "/users" route', () => {
         password: pass,
         shopList: [],
         myGames: [],
-        img: 'test',
+        img: 'test1',
         address: 'test',
         notification: [],
       };

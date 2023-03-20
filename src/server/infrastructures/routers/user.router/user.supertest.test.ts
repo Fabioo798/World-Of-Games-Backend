@@ -23,6 +23,8 @@ let credentials: Partial<User>;
 let wrongCredentials: Partial<User>;
 let header: any;
 let bearer: any;
+let ok: any;
+let notOk: any;
 
 const userCreator = new UserCreator(repo);
 const userFinder = new UserFinder(repo);
@@ -100,7 +102,8 @@ describe('Given the Express server class with "/users" route', () => {
     header = 'Authorization';
     bearer = `Bearer ${token1}`;
 
-
+    ok = setUp.get(`/users/${ids1[0]}`).set(header, bearer).expect(200);
+    notOk = await setUp.get(`/users/123`).set(header, bearer).expect(500);
   });
 
   afterAll(async () => {
@@ -152,21 +155,21 @@ describe('Given the Express server class with "/users" route', () => {
   });
 
   test('then the GET request  will send us back user data and a 200 status', async () => {
-    await setUp.get(`/users/${ids1[0]}`).set(header, bearer).expect(200);
+    await ok;
   });
   it('(NO) a GET request with wrong id should return a 500 status', async () => {
-    await setUp.get(`/users/12343`).set(header, bearer).expect(500);
+    await notOk;
   });
   test('if our PUT request must send user data and a 200 status', async () => {
-    await setUp.get(`/users/${ids1[0]}`).set(header, bearer).expect(200);
+    await ok;
   });
   it('ERROR the PUT request should throw 500 status', async () => {
-    await setUp.get(`/users/12`).set(header, bearer).expect(500);
+    await notOk;
   });
   test('then our DELETE request should send back user data and a 200 status', async () => {
-    await setUp.get(`/users/${ids1[0]}`).set(header, bearer).expect(200);
+    await ok;
   });
   it('(NO) the DELETE request must return a 500 status', async () => {
-    await setUp.get(`/users/123`).set(header, bearer).expect(500);
+    await notOk;
   });
 });

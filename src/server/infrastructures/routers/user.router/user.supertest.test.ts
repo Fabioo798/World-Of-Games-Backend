@@ -132,7 +132,7 @@ describe('Given the Express server class with "/users" route', () => {
   });
   it('ERROR then our POST request to "/users/login" must return a 401 status', async () => {
     const credentials = {
-      email: 'newuser@tet.it',
+      email: 'newuser@1tet.it',
       password: pass,
     };
     await setUp

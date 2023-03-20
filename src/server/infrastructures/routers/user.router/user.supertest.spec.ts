@@ -54,6 +54,9 @@ const setCollection = async () => {
   return testIds;
 };
 
+const pass = 'test';
+
+
 describe('Given an Express server class with "/users" route', () => {
   let server: ExpressServer;
   let token: string;
@@ -90,8 +93,7 @@ describe('Given an Express server class with "/users" route', () => {
       const newUser = {
         name: 'newuser',
         email: 'newuser@test.it',
-        password: 'test',
-        shopList: [],
+        password: pass,     shopList: [],
         myGames: [],
         img: 'test',
         address: 'test',
@@ -104,8 +106,7 @@ describe('Given an Express server class with "/users" route', () => {
     });
     test('(NO)then a POST request to "/users/register"  with missing info should throw 401', async () => {
       const newUser = {
-        password: 'test',
-        shopList: [],
+        password: pass,     shopList: [],
         myGames: [],
         img: 'test',
         address: 'test',
@@ -121,8 +122,7 @@ describe('Given an Express server class with "/users" route', () => {
   test('then a POST request to "/users/login" should return a token and a 200 status', async () => {
     const credentials = {
       email: 'newuser@test.it',
-      password: 'test',
-    };
+      password: pass, };
     await request(server.app)
       .post('/users/login')
       .set('Authorization', `Bearer ${token}`)
@@ -132,8 +132,8 @@ describe('Given an Express server class with "/users" route', () => {
   test('(NO)then a POST request to "/users/login" should return a token and a 200 status', async () => {
     const credentials = {
       email: 'newuser@test.it',
-      password: 'false',
-    };
+      password: pass,
+        };
     await request(server.app)
       .post('/users/login')
       .set('Authorization', `Bearer ${token}`)

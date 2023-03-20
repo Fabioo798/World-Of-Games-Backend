@@ -22,6 +22,7 @@ import request from 'supertest';
 const repo = new GameMongoRepo(GameModel);
 const userRepo = new UserMongoRepo(UserModel);
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 let setUp: request.SuperTest<any>;
 
 const gameCreator = new GameCreator(repo);

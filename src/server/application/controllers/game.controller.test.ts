@@ -73,7 +73,7 @@ describe('Given GameController class', () => {
 
   describe('When createGame method is called', () => {
     test('Then if the Game information is completed, it should return the resp.satus and resp.json', async () => {
-      const req = {
+      const req1 = {
         body: {
           gameName: 'test',
           category: 'MMO',
@@ -86,11 +86,20 @@ describe('Given GameController class', () => {
           role: 'test',
         },
       } as unknown as RequestPlus;
-
-      const mockData = (mockUserRepo.find as jest.Mock).mockReturnValue('test');
-      req.body.owner = mockData;
-      await controller.createGame(req, res, next);
+      const mockData = (mockUserRepo.find as jest.Mock).mockReturnValue({id: 'test',
+       name: 'test',
+       email: 'test',
+       password: 'test',
+       shopList: [],
+       myGames: [],
+       img: 'test',
+       address: 'test',
+       notification: []});
+      req1.body.owner = mockData;
+      await controller.createGame(req1, res, next);
       (mockUserRepo.update as jest.Mock).mockResolvedValue(mockUser);
+      expect(res.status).toHaveBeenCalled();
+      expect(res.json).toHaveBeenCalled();
     });
 
     test('Then if game information in the body, has not  name, it should be catch the error and next function have been called', async () => {
@@ -106,7 +115,6 @@ describe('Given GameController class', () => {
           name: 'test',
         },
       } as unknown as RequestPlus;
-
       await controller.createGame(req, res, next);
       expect(next).toHaveBeenCalled();
     });

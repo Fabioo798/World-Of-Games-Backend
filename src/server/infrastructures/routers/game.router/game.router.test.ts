@@ -1,8 +1,8 @@
-import GameController from '../../application/controllers/game.controller.js';
+import GameController from '../../../application/controllers/game.controller.js';
 import GameRouter from './game.router.js';
 
 const mockController = {
-  findOneGame: jest.fn(),
+  findGame: jest.fn(),
   findAllGame: jest.fn(),
   createGame: jest.fn(),
   updateGame: jest.fn(),

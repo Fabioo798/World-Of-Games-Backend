@@ -1,8 +1,8 @@
 /* eslint-disable new-cap */
 import { Router } from 'express';
-import GameController from '../../application/controllers/game.controller.js';
-import { Interceptors } from '../../application/interceptors/interceptors.js';
-import ServerRouter from '../../Server.router.interface.js';
+import GameController from '../../../application/controllers/game.controller.js';
+import { Interceptors } from '../../../application/interceptors/interceptors.js';
+import ServerRouter from '../../../Server.router.interface.js';
 
 export default class GameRouter implements ServerRouter {
   // eslint-disable-next-line @typescript-eslint/no-inferrable-types
@@ -28,7 +28,8 @@ export default class GameRouter implements ServerRouter {
     this.router.get(
       '/:id',
       this.interceptor.logged,
-      // This.controller.findGame.bind(this.controller)
+
+      this.controller.findGame.bind(this.controller)
     );
     this.router.post(
       '/',

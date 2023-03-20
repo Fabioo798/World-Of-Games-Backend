@@ -1,7 +1,4 @@
-export interface CustomError extends Error {
-  statusCode: number;
-  statusMessage: string;
-}
+import { CustomError } from "./interfaces.js";
 
 export class HTTPError extends Error implements CustomError {
   constructor(

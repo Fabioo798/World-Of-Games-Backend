@@ -5,10 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "jest --watchAll --coverage",
-    "test:prod": "jest --watchAll --coverage --watchAll=false --passWithNoTests",
-    "start": "cross-env DEBUG=W7* PORT=6000 node ./dist/index.js",
-    "start:mon": "cross-env DEBUG=W7* PORT=6000 nodemon ./dist/index.js",
+    "test": "jest --watchAll --coverage --runInBand",
+    "test:prod": "jest --watchAll --coverage --watchAll=false --runInBand",
+    "start": "cross-env DEBUG=WOG* PORT=6000 node ./dist/index.js",
+    "start:mon": "cross-env DEBUG=WOG* PORT=6000 nodemon ./dist/index.js",
     "build": "tsc -w",
     "build:prod": "tsc"
   },
@@ -41,6 +41,7 @@
     "@types/mongoose": "^5.11.97",
     "@types/morgan": "^1.9.4",
     "@types/node": "^18.14.0",
+    "@types/supertest": "^2.0.12",
     "bcryptjs": "^2.4.3",
     "commander": "^10.0.0",
     "cors": "^2.8.5",
@@ -52,7 +53,8 @@
     "jest-ts-webcompat-resolver": "^1.0.0",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "supertest": "^6.3.3"
   },
   "prettier": {
     "singleQuote": true

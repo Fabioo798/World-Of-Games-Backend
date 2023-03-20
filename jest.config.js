@@ -15,5 +15,6 @@ export default {
     'schema.ts',
     'user.ts',
     'game.ts',
+    'express.server.ts'
   ],
 };

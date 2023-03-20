@@ -89,7 +89,7 @@ describe('Given GameController class', () => {
       const mockData = (mockUserRepo.find as jest.Mock).mockReturnValue({id: 'test',
       name: 'test',
       email: 'test',
-      password: 'test',
+      password: pass,
       shopList: [],
       myGames: [],
       img: 'test',
@@ -212,7 +212,7 @@ describe('Given GameController class', () => {
     describe('When updateGame fails', () => {
       test('Then it should call next', async () => {
         const req = {
-          body: { name: 'test', email: 'Test', password: pass },
+          body: { name: 'test', email: 'Test', password: pass},
           params: { id: '1' },
         } as unknown as RequestPlus;
         (mockRepo.update as jest.Mock).mockResolvedValue(undefined);
@@ -225,7 +225,7 @@ describe('Given GameController class', () => {
     describe('When there is no req.info.id', () => {
       test('Then it should call next', async () => {
         const req = {
-          body: { name: 'test', email: 'Test', password: pass },
+          body: { name: 'test', email: 'Test', password: pass},
           info: { id: '1' },
         } as unknown as RequestPlus;
         await controller.updateGame(req, res, next);

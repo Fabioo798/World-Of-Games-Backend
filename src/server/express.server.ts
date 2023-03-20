@@ -1,6 +1,9 @@
 import express, { Express } from 'express';
 import { dbConnect } from './infrastructures/db/db.connect.js';
 import ServerRouter from './Server.router.interface.js';
+import createDebug from 'debug';
+
+const debug = createDebug('WOG: express server');
 
 export default class ExpressServer {
   app: Express;
@@ -24,7 +27,7 @@ export default class ExpressServer {
   start(port: number): void {
     dbConnect().then((mongoose) => {
       this.app.listen(port, () => {
-        console.log(
+        debug(
           `Server running on post ${port}`,
           mongoose.connection.db.databaseName
         );

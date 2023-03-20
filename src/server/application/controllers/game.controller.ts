@@ -30,8 +30,8 @@ export default class GameController {
   }
 
   async createGame(req: RequestPlus, res: Response, next: NextFunction) {
+    debug('createGame');
     try {
-      debug('createGame');
       const userId = req.info?.id;
       if (!userId) throw new HTTPError(404, 'Not found', 'Not found user id');
       const actualUser: User = await this.userFinder.execute(userId);

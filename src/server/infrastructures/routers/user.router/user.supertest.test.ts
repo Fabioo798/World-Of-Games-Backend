@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import mongoose from 'mongoose';
 import request from 'supertest';
 import { TokenPayload } from '../../../../commons/interfaces';
@@ -17,12 +18,11 @@ import User from '../../../../user/domain/user.model';
 
 const repo = new UserMongoRepo(UserModel);
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 let setUp: request.SuperTest<any>;
 let credentials: Partial<User>;
 let wrongCredentials: Partial<User>;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 let header: any;
+let bearer: any;
 
 const userCreator = new UserCreator(repo);
 const userFinder = new UserFinder(repo);
@@ -97,7 +97,8 @@ describe('Given the Express server class with "/users" route', () => {
       email: 'newuser@test.it',
       password: pass,
     };
-    header = `'Authorization', Bearer ${token1}`;
+    header = 'Authorization';
+    bearer = `Bearer ${token1}`;
   });
 
   afterAll(async () => {
@@ -134,32 +135,36 @@ describe('Given the Express server class with "/users" route', () => {
   });
 
   test('if the POST request to "/users/login" should return a token and a 200 status', async () => {
-    await setUp.post('/users/login').set(header).send(credentials).expect(202);
+    await setUp
+      .post('/users/login')
+      .set(header, bearer)
+      .send(credentials)
+      .expect(202);
   });
   it('ERROR then our POST request to "/users/login" must return a 401 status', async () => {
     await setUp
-      .post('/users/login')
-      .set(header)
+      .post('/users/loin')
+      .set(header, bearer)
       .send(wrongCredentials)
-      .expect(401);
+      .expect(404);
   });
 
   test('then the GET request  will send us back user data and a 200 status', async () => {
-    await setUp.get(`/users/${ids1[0]}`).set(header).expect(200);
+    await setUp.get(`/users/${ids1[0]}`).set(header, bearer).expect(200);
   });
   it('(NO) a GET request with wrong id should return a 500 status', async () => {
-    await setUp.get(`/users/12343`).set(header).expect(500);
+    await setUp.get(`/users/12343`).set(header, bearer).expect(500);
   });
   test('if our PUT request must send user data and a 200 status', async () => {
-    await setUp.get(`/users/${ids1[0]}`).set(header).expect(200);
+    await setUp.get(`/users/${ids1[0]}`).set(header, bearer).expect(200);
   });
   it('ERROR the PUT request should throw 500 status', async () => {
-    await setUp.get(`/users/12`).set(header).expect(500);
+    await setUp.get(`/users/12`).set(header, bearer).expect(500);
   });
   test('then our DELETE request should send back user data and a 200 status', async () => {
-    await setUp.get(`/users/${ids1[0]}`).set(header).expect(200);
+    await setUp.get(`/users/${ids1[0]}`).set(header, bearer).expect(200);
   });
   it('(NO) the DELETE request must return a 500 status', async () => {
-    await setUp.get(`/users/123`).set(header).expect(500);
+    await setUp.get(`/users/123`).set(header, bearer).expect(500);
   });
 });

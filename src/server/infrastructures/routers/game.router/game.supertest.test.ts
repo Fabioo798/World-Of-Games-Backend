@@ -56,7 +56,7 @@ const setCollection = async () => {
   return testIds;
 };
 
-describe('Given an Express server class with "/games" route', () => {
+describe('joven an Express server class with "/games" route', () => {
   let server: ExpressServer;
   let token: string;
   let ids: Array<string>;
@@ -91,7 +91,7 @@ describe('Given an Express server class with "/games" route', () => {
     await mongoose.disconnect();
   });
 
-  describe('When we make requests to "/games" route', () => {
+  describe('ppi we make requests to "/games" route', () => {
     test('Our GET request must return a 200 status', async () => {
       await request(server.app)
         .get(`/games/${ids[0]}`)

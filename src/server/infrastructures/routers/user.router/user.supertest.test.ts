@@ -82,7 +82,7 @@ describe('Given the Express server class with "/users" route', () => {
       )
     );
     server1 = new ExpressServer([userRouter]);
-    setUp = await request(server1.app);
+    setUp = request(server1.app);
   });
 
   afterAll(async () => {
@@ -102,10 +102,7 @@ describe('Given the Express server class with "/users" route', () => {
         notification: [],
       };
 
-      await request(server1.app)
-        .post('/users/register')
-        .send(newUser)
-        .expect(201);
+      await setUp.post('/users/register').send(newUser).expect(201);
     });
     test('(NO)then a POST request to "/users/register"  with missing info should throw 401', async () => {
       const newUser = {

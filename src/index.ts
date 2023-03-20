@@ -10,7 +10,7 @@ import { UserController } from './server/application/controllers/user.controller
 import { GameModel } from './server/domain/game.schema.js';
 import { UserModel } from './server/domain/user.schema.js';
 import ExpressServer from './server/express.server.js';
-import GameRouter from './server/infrastructures/routers/game.router.js';
+import GameRouter from './server/infrastructures/routers/game.router/game.router.js';
 import UserRouter from './server/infrastructures/routers/user.router.js';
 import UserCreator from './user/application/usercreator.js';
 import UserDeleter from './user/application/userdeleter.js';
@@ -20,7 +20,6 @@ import UserUpdater from './user/application/userupdater.js';
 import UserMongoRepo from './user/infrastructure/user.mongo.repo.js';
 
 const bootstrap = async () => {
-
   // User
 
   const userRepository = new UserMongoRepo(UserModel);
@@ -30,7 +29,13 @@ const bootstrap = async () => {
   const userCreator = new UserCreator(userRepository);
   const userUpdater = new UserUpdater(userRepository);
   const userDeleter = new UserDeleter(userRepository);
-  const userController = new UserController(userCreator,userFinders, userSearcher, userUpdater, userDeleter)
+  const userController = new UserController(
+    userCreator,
+    userFinders,
+    userSearcher,
+    userUpdater,
+    userDeleter
+  );
 
   const userRouter = new UserRouter(userController);
 
@@ -38,12 +43,12 @@ const bootstrap = async () => {
 
   const gameRepository = new GameMongoRepo(GameModel);
 
-  const gameSearcher = new GameSearcher(gameRepository)
-  const gameCreator = new GameCreator(gameRepository)
-  const gameFinder = new GameFinder(gameRepository)
-  const gameFinderAll = new GameFinderAll(gameRepository)
-  const gameUpdater = new GameUpdater(gameRepository)
-  const gameDeleter = new GameDeleter(gameRepository)
+  const gameSearcher = new GameSearcher(gameRepository);
+  const gameCreator = new GameCreator(gameRepository);
+  const gameFinder = new GameFinder(gameRepository);
+  const gameFinderAll = new GameFinderAll(gameRepository);
+  const gameUpdater = new GameUpdater(gameRepository);
+  const gameDeleter = new GameDeleter(gameRepository);
   const gameController = new GameController(
     gameCreator,
     gameFinderAll,
@@ -52,10 +57,10 @@ const bootstrap = async () => {
     gameUpdater,
     gameDeleter,
     userFinders,
-    userUpdater,
+    userUpdater
   );
 
-  const gameRouter = new GameRouter(gameController)
+  const gameRouter = new GameRouter(gameController);
 
   // Server
 

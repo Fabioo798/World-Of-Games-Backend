@@ -16,6 +16,9 @@ import UserMongoRepo from '../../../../user/infrastructure/user.mongo.repo';
 
 const repo = new UserMongoRepo(UserModel);
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let setUp: request.SuperTest<any>;
+
 const userCreator = new UserCreator(repo);
 const userFinder = new UserFinder(repo);
 const userSearcher = new UserSearcher(repo);
@@ -23,6 +26,7 @@ const userUpdater = new UserUpdater(repo);
 const userDeleter = new UserDeleter(repo);
 
 const pass = 'test';
+
 
 const setCollection = async () => {
   const databaseMock = [
@@ -79,6 +83,8 @@ describe('Given the Express server class with "/users" route', () => {
       )
     );
     server1 = new ExpressServer([userRouter]);
+    setUp = await request(server1.app);
+
   });
 
   afterAll(async () => {
@@ -97,10 +103,8 @@ describe('Given the Express server class with "/users" route', () => {
         address: 'test',
         notification: [],
       };
-      await request(server1.app)
-        .post('/users/register')
-        .send(newUser)
-        .expect(201);
+
+        setUp.post('/users/register').send(newUser).expect(201);
     });
     test('(NO)then a POST request to "/users/register"  with missing info should throw 401', async () => {
       const newUser = {
@@ -111,10 +115,8 @@ describe('Given the Express server class with "/users" route', () => {
         address: 'test',
         notification: [],
       };
-      await request(server1.app)
-        .post('/users/register')
-        .send(newUser)
-        .expect(401);
+
+        setUp.post('/users/register').send(newUser).expect(401);
     });
   });
 
@@ -123,18 +125,19 @@ describe('Given the Express server class with "/users" route', () => {
       email: 'newuser@test.it',
       password: pass,
     };
-    await request(server1.app)
-      .post('/users/login')
-      .set('Authorization', `Bearer ${token1}`)
-      .send(credentials)
-      .expect(202);
+
+      setUp
+        .post('/users/login')
+        .set('Authorization', `Bearer ${token1}`)
+        .send(credentials)
+        .expect(202);
   });
   it('ERROR then our POST request to "/users/login" must return a 401 status', async () => {
     const credentials = {
       email: 'newuser@tet.it',
       password: pass,
     };
-    await request(server1.app)
+    setUp
       .post('/users/login')
       .set('Authorization', `Bearer ${token1}`)
       .send(credentials)
@@ -142,37 +145,37 @@ describe('Given the Express server class with "/users" route', () => {
   });
 
   test('then the GET request  will send us back user data and a 200 status', async () => {
-    await request(server1.app)
+    setUp
       .get(`/users/${ids1[0]}`)
       .set('Authorization', `Bearer ${token1}`)
       .expect(200);
   });
   it('(NO) a GET request with wrong id should return a 500 status', async () => {
-    await request(server1.app)
+    setUp
       .get(`/users/12343`)
       .set('Authorization', `Bearer ${token1}`)
       .expect(500);
   });
   test('if our PUT request must send user data and a 200 status', async () => {
-    await request(server1.app)
+    setUp
       .get(`/users/${ids1[0]}`)
       .set('Authorization', `Bearer ${token1}`)
       .expect(200);
   });
   it('ERROR the PUT request should throw 500 status', async () => {
-    await request(server1.app)
+    setUp
       .get(`/users/123`)
       .set('Authorization', `Bearer ${token1}`)
       .expect(500);
   });
   test('then our DELETE request should send back user data and a 200 status', async () => {
-    await request(server1.app)
+    setUp
       .get(`/users/${ids1[0]}`)
       .set('Authorization', `Bearer ${token1}`)
       .expect(200);
   });
   it('(NO) the DELETE request must return a 500 status', async () => {
-    await request(server1.app)
+    setUp
       .get(`/users/123`)
       .set('Authorization', `Bearer ${token1}`)
       .expect(500);

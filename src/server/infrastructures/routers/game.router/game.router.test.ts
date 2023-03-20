@@ -10,6 +10,7 @@ const mockController = {
   searchGame: jest.fn(),
 } as unknown as GameController;
 
+
 describe('Given the userRouter class', () => {
   describe('When is instanced', () => {
     test('Then', () => {

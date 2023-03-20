@@ -41,7 +41,7 @@ const setCollection = async () => {
       shopList: [],
       myGames: [],
       img: 'test',
-      address: 'test',
+      address: 'test1',
       notification: [],
     },
     {
@@ -100,7 +100,7 @@ describe('Given the Express server class with "/users" route', () => {
     header = 'Authorization';
     bearer = `Bearer ${token1}`;
 
-    
+
   });
 
   afterAll(async () => {

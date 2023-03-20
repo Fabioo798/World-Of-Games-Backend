@@ -23,9 +23,9 @@ import request from 'supertest';
 const repo = new GameMongoRepo(GameModel);
 const userRepo = new UserMongoRepo(UserModel);
 
-let header: any;
-let bearer: any;
-let setUp: request.SuperTest<any>;
+let header1: any;
+let bearer1: any;
+let setUp1: request.SuperTest<any>;
 
 const gameCreator = new GameCreator(repo);
 const gameFinderAll = new GameFinderAll(repo);
@@ -86,10 +86,10 @@ describe('joven an Express server class with "/games" route', () => {
       )
     );
     server = new ExpressServer([gameRouter]);
-    setUp = await request(server.app);
+    setUp1 = await request(server.app);
 
-    header = 'Authorization';
-    bearer = `Bearer ${token}`;
+    header1 = 'Authorization';
+    bearer1 = `Bearer ${token}`;
   });
 
   afterAll(async () => {
@@ -100,55 +100,55 @@ describe('joven an Express server class with "/games" route', () => {
     test('Our GET request must return a 200 status', async () => {
       await request(server.app)
         .get(`/games/${ids[0]}`)
-        .set(header, bearer)
+        .set(header1, bearer1)
         .expect(200);
     });
     test('(NO) the GET request with  WRONG ID must return a 500 status', async () => {
       await request(server.app)
         .get(`/games/1324`)
-        .set(header, bearer)
+        .set(header1, bearer1)
         .expect(500);
     });
     it('A GET request will return a 200 status',async () => {
-      await setUp.get(`/games/`).set(header, bearer).expect(200);
+      await setUp1.get(`/games/`).set(header1, bearer1).expect(200);
     });
     test('ERROR the GET request with wrong path must return a 404 status', async () => {
       await request(server.app)
         .get(`/game/`)
-        .set(header, bearer)
+        .set(header1, bearer1)
         .expect(404);
     });
     it('then our PUT request to should return game data and a 200 status', async () => {
-      await setUp
+      await setUp1
         .get(`/games/${ids[0]}`)
-        .set(header, bearer)
+        .set(header1, bearer1)
         .expect(200);
     });
     test('(NO) the PUT request  with wrong id  must give a 500 status', async () => {
       await request(server.app)
         .get(`/games/234`)
-        .set(header, bearer)
+        .set(header1, bearer1)
         .expect(500);
     });
     it('Our POST request have to return game data and a 200 status', async () => {
-      await setUp.get(`/games/`).set(header, bearer).expect(200);
+      await setUp1.get(`/games/`).set(header1, bearer1).expect(200);
     });
     test('ERROR the POST request must return a 404 status', async () => {
       await request(server.app)
         .get(`/game/`)
-        .set(header, bearer)
+        .set(header1, bearer1)
         .expect(404);
     });
     it('then a DELETE request to should return game data and a 200 status', async () => {
-      await setUp
+      await setUp1
         .get(`/games/${ids[0]}`)
-        .set(header, bearer)
+        .set(header1, bearer1)
         .expect(200);
     });
     test('(NO) the DELETE request with wrong id have to return a 500 status', async () => {
       await request(server.app)
         .get(`/games/213`)
-        .set(header, bearer)
+        .set(header1, bearer1)
         .expect(500);
     });
   });

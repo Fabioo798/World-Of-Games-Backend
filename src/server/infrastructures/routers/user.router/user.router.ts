@@ -1,8 +1,8 @@
 /* eslint-disable new-cap */
 import { Router } from 'express';
-import { UserController } from '../../application/controllers/user.controller.js';
-import { Interceptors } from '../../application/interceptors/interceptors.js';
-import ServerRouter from '../../Server.router.interface.js';
+import { UserController } from '../../../application/controllers/user.controller';
+import { Interceptors } from '../../../application/interceptors/interceptors';
+import ServerRouter from '../../../Server.router.interface';
 
 export default class UserRouter implements ServerRouter {
   // eslint-disable-next-line @typescript-eslint/no-inferrable-types

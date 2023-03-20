@@ -1,4 +1,4 @@
-import { UserController } from '../../application/controllers/user.controller.js';
+import { UserController } from '../../../application/controllers/user.controller.js';
 import UserRouter from './user.router.js';
 
 const mockController = {

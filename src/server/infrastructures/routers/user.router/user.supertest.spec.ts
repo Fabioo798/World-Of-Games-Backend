@@ -22,9 +22,9 @@ const userSearcher = new UserSearcher(repo);
 const userUpdater = new UserUpdater(repo);
 const userDeleter = new UserDeleter(repo);
 
+const pass = 'test';
 
 const setCollection = async () => {
-  const pass = 'test';
   const databaseMock = [
     {
       name: 'maria',
@@ -53,9 +53,6 @@ const setCollection = async () => {
   const testIds = [data[0].id, data[1].id];
   return testIds;
 };
-
-const pass = 'test';
-
 
 describe('Given an Express server class with "/users" route', () => {
   let server: ExpressServer;
@@ -89,11 +86,12 @@ describe('Given an Express server class with "/users" route', () => {
   });
 
   describe('when we make requests to "/users" route', () => {
-    test('then a POST request to "/users/register" should create a new user and return a 201 status', async () => {
+    test('then our POST request to "/users/register" should create a new user and send back a 201 status', async () => {
       const newUser = {
         name: 'newuser',
         email: 'newuser@test.it',
-        password: pass,     shopList: [],
+        password: pass,
+        shopList: [],
         myGames: [],
         img: 'test',
         address: 'test',
@@ -106,7 +104,8 @@ describe('Given an Express server class with "/users" route', () => {
     });
     test('(NO)then a POST request to "/users/register"  with missing info should throw 401', async () => {
       const newUser = {
-        password: pass,     shopList: [],
+        password: pass,
+        shopList: [],
         myGames: [],
         img: 'test',
         address: 'test',
@@ -119,21 +118,22 @@ describe('Given an Express server class with "/users" route', () => {
     });
   });
 
-  test('then a POST request to "/users/login" should return a token and a 200 status', async () => {
+  test('then the POST request to "/users/login" should return a token and a 200 status', async () => {
     const credentials = {
       email: 'newuser@test.it',
-      password: pass, };
+      password: pass,
+    };
     await request(server.app)
       .post('/users/login')
       .set('Authorization', `Bearer ${token}`)
       .send(credentials)
       .expect(202);
   });
-  test('(NO)then a POST request to "/users/login" should return a token and a 200 status', async () => {
+  test('(NO)then our POST request to "/users/login" must return a 401 status', async () => {
     const credentials = {
-      email: 'newuser@test.it',
+      email: 'newuser@tet.it',
       password: pass,
-        };
+    };
     await request(server.app)
       .post('/users/login')
       .set('Authorization', `Bearer ${token}`)
@@ -141,7 +141,7 @@ describe('Given an Express server class with "/users" route', () => {
       .expect(401);
   });
 
-  test('then a GET request to "/users/:id" should return user data and a 200 status', async () => {
+  test('then the GET request to "/users/:id" will send us back user data and a 200 status', async () => {
     await request(server.app)
       .get(`/users/${ids[0]}`)
       .set('Authorization', `Bearer ${token}`)
@@ -153,25 +153,25 @@ describe('Given an Express server class with "/users" route', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect(500);
   });
-  test('then a PUT request to "/users/:id" should return user data and a 200 status', async () => {
+  test('then our PUT request to "/users/:id" must send user data and a 200 status', async () => {
     await request(server.app)
       .get(`/users/${ids[0]}`)
       .set('Authorization', `Bearer ${token}`)
       .expect(200);
   });
-  test('(NO)then a PUT request to "/users/:id" should return user data and a 500 status', async () => {
+  test('(NO)then the PUT request to "/users/:id" should throw 500 status', async () => {
     await request(server.app)
       .get(`/users/123`)
       .set('Authorization', `Bearer ${token}`)
       .expect(500);
   });
-  test('then a DELETE request to "/users/:id" should return user data and a 200 status', async () => {
+  test('then our DELETE request to "/users/:id" should send back user data and a 200 status', async () => {
     await request(server.app)
       .get(`/users/${ids[0]}`)
       .set('Authorization', `Bearer ${token}`)
       .expect(200);
   });
-  test('(NO)then a DELETE request to "/users/:id" should return user data and a 500 status', async () => {
+  test('(NO)then the DELETE request to "/users/:id" must return a 500 status', async () => {
     await request(server.app)
       .get(`/users/123`)
       .set('Authorization', `Bearer ${token}`)

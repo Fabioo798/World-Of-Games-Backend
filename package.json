@@ -5,8 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "jest --watchAll --coverage",
-    "test:prod": "jest --watchAll --coverage --watchAll=false --passWithNoTests",
+    "test": "jest --watchAll --coverage --runInBand",
+    "test:prod": "jest --watchAll --coverage --watchAll=false --runInBand",
     "start": "cross-env DEBUG=WOG* PORT=6000 node ./dist/index.js",
     "start:mon": "cross-env DEBUG=WOG* PORT=6000 nodemon ./dist/index.js",
     "build": "tsc -w",

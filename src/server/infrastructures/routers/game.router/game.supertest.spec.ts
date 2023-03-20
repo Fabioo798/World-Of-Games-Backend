@@ -88,49 +88,49 @@ describe('Given an Express server class with "/games" route', () => {
   });
 
   describe('When we make requests to "/games" route', () => {
-    test('Then a GET request to "/games/:id" with correct info should return a 200 status', async () => {
+    test('Then our GET request to "/games/:id" must return a 200 status', async () => {
       await request(server.app)
         .get(`/games/${ids[0]}`)
         .set('Authorization', `Bearer ${token}`)
         .expect(200);
     });
-    test('(NO)Then a GET request to "/games/:id" with  WRONG ID should return a 500 status', async () => {
+    test('(NO)Then the GET request with  WRONG ID must return a 500 status', async () => {
       await request(server.app)
         .get(`/games/1324`)
         .set('Authorization', `Bearer ${token}`)
         .expect(500);
     });
-    test('Then a GET request to "/games/" with correct info should return a 200 status', async () => {
+    test('Then a GET request to "/games/" will return a 200 status', async () => {
       await request(server.app)
         .get(`/games/`)
         .set('Authorization', `Bearer ${token}`)
         .expect(200);
     });
-    test('Then a GET request to "/game/" should return a 404 status', async () => {
+    test('(NO)Then the GET request with wrong path must return a 404 status', async () => {
       await request(server.app)
         .get(`/game/`)
         .set('Authorization', `Bearer ${token}`)
         .expect(404);
     });
-    test('then a PUT request to "/games/:id" should return user data and a 200 status', async () => {
+    test('then our PUT request to "/games/:id" should return user data and a 200 status', async () => {
       await request(server.app)
         .get(`/games/${ids[0]}`)
         .set('Authorization', `Bearer ${token}`)
         .expect(200);
     });
-    test('(NO)then a PUT request to "/games/:id" with wrong id should return a 500 status', async () => {
+    test('(NO)then the PUT request  with wrong id  must give a 500 status', async () => {
       await request(server.app)
         .get(`/games/234`)
         .set('Authorization', `Bearer ${token}`)
         .expect(500);
     });
-    test('then a POST request to "/games/" should return user data and a 200 status', async () => {
+    test('then our POST request to "/games/" have to return user data and a 200 status', async () => {
       await request(server.app)
         .get(`/games/`)
         .set('Authorization', `Bearer ${token}`)
         .expect(200);
     });
-    test('(NO)then a POST request to "/game/" should return a 404 status', async () => {
+    test('(NO)then the POST request must return a 404 status', async () => {
       await request(server.app)
         .get(`/game/`)
         .set('Authorization', `Bearer ${token}`)
@@ -142,7 +142,7 @@ describe('Given an Express server class with "/games" route', () => {
         .set('Authorization', `Bearer ${token}`)
         .expect(200);
     });
-    test('(NO)then a DELETE request to "/games/:id" with wrong id should return a 404 status', async () => {
+    test('(NO)then the DELETE request with wrong id have to return a 500 status', async () => {
       await request(server.app)
         .get(`/games/213`)
         .set('Authorization', `Bearer ${token}`)

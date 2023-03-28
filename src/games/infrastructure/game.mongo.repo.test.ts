@@ -18,6 +18,14 @@ const mockGame = {
   category: 'MMO',
 } as Game;
 
+let popValue: unknown;
+
+const mockPopulateExec = () => ({
+  populate: jest.fn().mockImplementation(() => ({
+      exec: jest.fn().mockResolvedValue(popValue),
+    })),
+  });
+
 describe('Given the GameMongoRepo', () => {
   const repo = new GameMongoRepo(mockModel);
 
@@ -47,7 +55,7 @@ describe('Given the GameMongoRepo', () => {
   });
   describe('When findOne method is called', () => {
     test('Then it should find an Game', async () => {
-      (mockModel.findById as jest.Mock).mockResolvedValue(mockGame);
+      (mockModel.findById as jest.Mock).mockImplementation(mockPopulateExec);
 
       await repo.findOne('2');
 
@@ -56,7 +64,7 @@ describe('Given the GameMongoRepo', () => {
   });
   describe('When findAll method is called', () => {
     test('Then it should find an Game', async () => {
-      (mockModel.find as jest.Mock).mockResolvedValue(mockGame);
+      (mockModel.find as jest.Mock).mockImplementation(mockPopulateExec);
 
       await repo.findAll();
 

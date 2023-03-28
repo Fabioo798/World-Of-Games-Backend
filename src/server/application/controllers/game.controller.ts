@@ -86,11 +86,11 @@ export default class GameController {
   async searchGame(req: Request, res: Response, next: NextFunction) {
     try {
       debug('searchGame');
-      if (!req.body.category)
+      if (!req.params.category)
         throw new HTTPError(404, 'Missing category', 'no category in the body');
       const response = await this.gameSearcher.execute({
         key: 'category',
-        value: req.body.category,
+        value: req.params.category,
       });
 
       res.status(200);
@@ -113,7 +113,8 @@ export default class GameController {
 
       await this.gameUpdater.execute(newGame);
 
-      res.sendStatus(200);
+      res.status(200);
+      res.json({ ok: true, message: 'Game updated successfully' });
     } catch (error) {
       next(error);
     }
@@ -126,7 +127,8 @@ export default class GameController {
 
       await this.gameDeleter.execute(id);
 
-      res.sendStatus(204);
+      res.status(200);
+      res.json({ ok: true, message: 'Game deleted successfully' });
     } catch (error) {
       next(error);
     }

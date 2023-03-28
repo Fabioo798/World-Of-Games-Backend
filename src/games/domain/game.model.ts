@@ -11,6 +11,7 @@ export default class Game {
     public releaseDate: string,
     public img: string,
     public price: number,
+    public description: string,
     public owner: User
   ) {}
 }

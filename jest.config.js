@@ -2,7 +2,7 @@
 export default {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  testPathIgnorePatterns: ['dist'],
+  testPathIgnorePatterns: ['dist', 'node_modules'],
   resolver: 'jest-ts-webcompat-resolver',
   collectCoverageFrom: ['src/**/*.ts'],
   coveragePathIgnorePatterns: [
@@ -15,6 +15,6 @@ export default {
     'schema.ts',
     'user.ts',
     'game.ts',
-    'express.server.ts'
+    'express.server.ts',
   ],
 };

@@ -19,6 +19,15 @@ const mockUser = {
   email: 'test',
   password: pass,
 } as User;
+let popValue: unknown;
+
+const mockPopulateExec = () => ({
+  populate: jest.fn().mockImplementation(() => ({
+    populate: jest.fn().mockImplementation(() => ({
+      exec: jest.fn().mockResolvedValue(popValue),
+    })),
+  })),
+});
 
 describe('Given the UserMongoRepo', () => {
   const repo = new UserMongoRepo(mockModel);
@@ -49,7 +58,7 @@ describe('Given the UserMongoRepo', () => {
   });
   describe('When find method is called', () => {
     test('Then it should find an user', async () => {
-      (mockModel.findById as jest.Mock).mockResolvedValue(mockUser);
+      (mockModel.findById as jest.Mock).mockImplementation(mockPopulateExec);
 
       await repo.find('2');
 

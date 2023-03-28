@@ -25,6 +25,8 @@ let header: any;
 let bearer: any;
 let ok: any;
 let notOk: any;
+let okDel: any;
+let notOkDel: any;
 
 const userCreator = new UserCreator(repo);
 const userFinder = new UserFinder(repo);
@@ -104,6 +106,11 @@ describe('Given the Express server class with "/users" route', () => {
 
     ok = setUp.get(`/users/${ids1[0]}`).set(header, bearer).expect(200);
     notOk = await setUp.get(`/users/123`).set(header, bearer).expect(500);
+    okDel = await setUp
+      .delete(`/users/${ids1[0]}`)
+      .set(header, bearer)
+      .expect(204);
+    notOkDel = await setUp.delete(`/users/123`).set(header, bearer).expect(500);
   });
 
   afterAll(async () => {
@@ -167,9 +174,9 @@ describe('Given the Express server class with "/users" route', () => {
     await notOk;
   });
   test('then our DELETE request should send back user data and a 200 status', async () => {
-    await ok;
+    await okDel;
   });
-  it('(NO) the DELETE request must return a 500 status', async () => {
+  it('(NO) the DELETE request must return a 204 status', async () => {
     await notOk;
   });
 });

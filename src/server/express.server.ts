@@ -34,7 +34,8 @@ export default class ExpressServer {
   }
 
   routes(): void {
-    this.app.get('/', (req, res, next) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    this.app.get('/', (req, res, _next) => {
       res.json(routes);
     });
     this.routers.forEach((router) => {

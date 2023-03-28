@@ -26,6 +26,7 @@ let bearer: any;
 let ok: any;
 let notOk: any;
 let okDel: any;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 let notOkDel: any;
 
 const userCreator = new UserCreator(repo);

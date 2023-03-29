@@ -53,7 +53,7 @@ Games endpoints:
 
 ## Last information's
 
-The project is 100% tested with jest and sonarCloud, with the implementation of supertest in order to check the routes
+The project is 100% tested with jest and sonarCloud, with the implementation of supertest in order to check all the routes
 
 - SonarCloud: <https://sonarcloud.io/summary/overall?id=isdi-coders-2023_Fabio-Di-Noia-Final-Project-back-202301-mad>;
 

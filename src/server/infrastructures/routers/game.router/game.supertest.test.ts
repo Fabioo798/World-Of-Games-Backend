@@ -151,10 +151,16 @@ describe('joven an Express server class with "/games" route', () => {
       await notOk;
     });
     it('our GET request have to return game of selected caregory and 200', async () => {
-      request(server.app).get(`/games/:MMO`).set(header1, bearer1).expect(200);
+      await request(server.app)
+        .get(`/games/filter/MMO`)
+        .set(header1, bearer1)
+        .expect(200);
     });
     it('our GET request have to return game of selected caregory and 500', async () => {
-      request(server.app).get(`/games/:MM`).set(header1, bearer1).expect(404);
+      await request(server.app)
+        .get(`/games/filte/:MMO`)
+        .set(header1, bearer1)
+        .expect(404);
     });
   });
 });

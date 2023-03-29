@@ -47,12 +47,16 @@ const setCollection = async () => {
       category: 'MMO',
       img: 'test',
       releaseDate: 'test',
+      price: 20,
+      description: 'test',
     },
     {
       gameName: 'Guitar Hero 2',
       category: 'MMO',
       img: 'test2',
       releaseDate: 'test',
+      price: 20,
+      description: 'test',
     },
   ];
   await GameModel.deleteMany();
@@ -122,7 +126,7 @@ describe('joven an Express server class with "/games" route', () => {
     test('(NO) the GET request with  WRONG ID must return a 500 status', async () => {
       await notOk;
     });
-    it('A GET request will return a 200 status',async () => {
+    it('A GET request will return a 200 status', async () => {
       await ok;
     });
     test('ERROR the GET request with wrong path must return a 404 status', async () => {
@@ -141,10 +145,22 @@ describe('joven an Express server class with "/games" route', () => {
       await notFound;
     });
     it('then a DELETE request to should return game data and a 200 status', async () => {
-      await okId
+      await okId;
     });
     test('(NO) the DELETE request with wrong id have to return a 500 status', async () => {
       await notOk;
+    });
+    it('our GET request have to return game of selected caregory and 200', async () => {
+      await request(server.app)
+        .get(`/games/filter/MMO`)
+        .set(header1, bearer1)
+        .expect(200);
+    });
+    it('our GET request have to return game of selected caregory and 500', async () => {
+      await request(server.app)
+        .get(`/games/filte/:MMO`)
+        .set(header1, bearer1)
+        .expect(404);
     });
   });
 });

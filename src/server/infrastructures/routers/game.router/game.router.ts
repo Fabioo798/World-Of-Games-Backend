@@ -16,14 +16,14 @@ export default class GameRouter implements ServerRouter {
 
   registerControllers(): void {
     this.router.get(
-      '/',
+      '/filter/:category',
       this.interceptor.logged,
-      this.controller.findAllGame.bind(this.controller),
+      this.controller.searchGame.bind(this.controller)
     );
     this.router.get(
       '/',
       this.interceptor.logged,
-      this.controller.searchGame.bind(this.controller)
+      this.controller.findAllGame.bind(this.controller)
     );
     this.router.get(
       '/:id',

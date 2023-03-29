@@ -7,17 +7,27 @@ const gameSchema = new Schema<Game>({
     required: true,
     unique: false,
   },
+  releaseDate: {
+    type: String,
+    required: true,
+    unique: false,
+  },
   category: {
     type: String,
     required: true,
     unique: false,
   },
-  img: {
+  price: {
+    type: Number,
+    required: true,
+    unique: false,
+  },
+  description: {
     type: String,
     required: true,
     unique: false,
   },
-  releaseDate: {
+  img: {
     type: String,
     required: true,
     unique: false,

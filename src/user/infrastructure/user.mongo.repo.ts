@@ -18,7 +18,9 @@ export default class UserMongoRepo implements UserRepository {
   }
 
   async find(id: string): Promise<User> {
-    const response = await this.userModel.findById(id);
+    const response = await this.userModel
+      .findById(id)
+      .populate('myGames', '-owner').populate('shopList', '-owner');
     return response as User;
   }
 

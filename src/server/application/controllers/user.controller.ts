@@ -9,7 +9,6 @@ import UserSearcher from '../../../user/application/usersearcher.js';
 import UserUpdater from '../../../user/application/userupdater.js';
 import { Auth } from '../auth/auth.js';
 
-
 const debug = createDebug('WOF: user controller');
 
 export class UserController {
@@ -26,12 +25,12 @@ export class UserController {
 
   async findUser(req: Request, res: Response, next: NextFunction) {
     try {
-      debug('findUser')
+      debug('findUser');
       const { id } = req.params;
       const response = await this.userFinder.execute(id);
 
       res.status(200);
-      res.json({results: [response]});
+      res.json({ results: [response] });
     } catch (error) {
       next(error);
     }
@@ -39,7 +38,7 @@ export class UserController {
 
   async registerUser(req: Request, res: Response, next: NextFunction) {
     try {
-      debug('registerUser')
+      debug('registerUser');
       const { body } = req;
 
       if (
@@ -72,7 +71,7 @@ export class UserController {
 
   async loginUser(req: Request, res: Response, next: NextFunction) {
     try {
-      debug('loginUser')
+      debug('loginUser');
       if (!req.body.email || !req.body.password)
         throw new HTTPError(401, 'Unauthorized', 'Invalid Email or password');
 
@@ -107,7 +106,7 @@ export class UserController {
 
   async updateUser(req: Request, res: Response, next: NextFunction) {
     try {
-      debug('updateUser')
+      debug('updateUser');
       const { id } = req.params;
       const { body } = req;
 
@@ -118,20 +117,22 @@ export class UserController {
 
       await this.userUpdater.execute(newUser);
 
-      res.sendStatus(200);
+      res.status(200);
+      res.json({ ok: true, message: 'Game updated successfully' });
     } catch (error) {
       next(error);
     }
   }
 
-  async deleteUser(req: Request, res: Response, next: NextFunction){
+  async deleteUser(req: Request, res: Response, next: NextFunction) {
     try {
-      debug('deleteUser')
+      debug('deleteUser');
       const { id } = req.params;
 
       await this.userDeleter.execute(id);
 
-      res.sendStatus(204);
+      res.status(204);
+      res.json({ ok: true, message: 'Game updated successfully' });
     } catch (error) {
       next(error);
     }

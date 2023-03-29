@@ -86,15 +86,17 @@ describe('Given GameController class', () => {
           role: 'test',
         },
       } as unknown as RequestPlus;
-      const mockData = (mockUserRepo.find as jest.Mock).mockReturnValue({id: 'test',
-      name: 'test',
-      email: 'test',
-      password: pass,
-      shopList: [],
-      myGames: [],
-      img: 'test',
-      address: 'test',
-      notification: []});
+      const mockData = (mockUserRepo.find as jest.Mock).mockReturnValue({
+        id: 'test',
+        name: 'test',
+        email: 'test',
+        password: pass,
+        shopList: [],
+        myGames: [],
+        img: 'test',
+        address: 'test',
+        notification: [],
+      });
       req1.body.owner = mockData;
       await controller.createGame(req1, res, next);
       (mockUserRepo.update as jest.Mock).mockResolvedValue(mockUser);
@@ -173,6 +175,9 @@ describe('Given GameController class', () => {
           category: 'MMO',
           gameName: 'test',
         },
+        params: {
+          category: 'MMO',
+        },
       } as unknown as Request;
 
       (mockRepo.search as jest.Mock).mockResolvedValue(['MMO']);
@@ -188,6 +193,7 @@ describe('Given GameController class', () => {
         body: {
           gameName: 'test',
         },
+        params: {},
       } as unknown as Request;
 
       await controller.searchGame(req, res, next);
@@ -212,7 +218,7 @@ describe('Given GameController class', () => {
     describe('When updateGame fails', () => {
       test('Then it should call next', async () => {
         const req = {
-          body: { name: 'test', email: 'Test', password: pass},
+          body: { name: 'test', email: 'Test', password: pass },
           params: { id: '1' },
         } as unknown as RequestPlus;
         (mockRepo.update as jest.Mock).mockResolvedValue(undefined);
@@ -225,7 +231,7 @@ describe('Given GameController class', () => {
     describe('When there is no req.info.id', () => {
       test('Then it should call next', async () => {
         const req = {
-          body: { name: 'test', email: 'Test', password: pass},
+          body: { name: 'test', email: 'Test', password: pass },
           info: { id: '1' },
         } as unknown as RequestPlus;
         await controller.updateGame(req, res, next);
@@ -245,6 +251,19 @@ describe('Given GameController class', () => {
       (mockRepo.delete as jest.Mock).mockResolvedValue({ id: '1' });
       await controller.deleteGame(req, res, next);
       expect(res.status).toHaveBeenCalled();
+    });
+  });
+  describe('When deleteGame method is called', () => {
+    test('Then if there is no id it should respond with next', async () => {
+      const req = {
+        body: { gameName: 'test', releaseDate: 'test', img: 'test' },
+        info: {},
+        params: {},
+      } as unknown as RequestPlus;
+
+      (mockRepo.delete as jest.Mock).mockRejectedValue({});
+      await controller.deleteGame(req, res, next);
+      expect(next).toHaveBeenCalled();
     });
   });
 });
